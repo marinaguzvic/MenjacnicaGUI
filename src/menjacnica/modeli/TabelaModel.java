@@ -2,14 +2,30 @@ package menjacnica.modeli;
 
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
+import menjacnica.gui.GUIKontroler;
+
 public class TabelaModel extends AbstractTableModel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	LinkedList<String []> redovi = new LinkedList<>();
 	
 	public void dodajRed(String [] red){
 		redovi.add(red);
 		fireTableDataChanged();
+	}
+	
+	public void izbrisiRed(int index){
+		if(redovi.remove(index) != null){
+			JOptionPane.showMessageDialog(GUIKontroler.glavniProzor.getContentPane(), "Uspesno ste izbrisali kurs!");
+			GUIKontroler.glavniProzor.dodajTekst("Izbrisan je red " + index + "!");
+			fireTableDataChanged();
+		}else JOptionPane.showMessageDialog(GUIKontroler.glavniProzor.getContentPane(), "Nije uspelo brisanje!");
+
 	}
 	@Override
 	public int getColumnCount() {

@@ -179,6 +179,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnDodajKurs() {
 		if (btnDodajKurs == null) {
 			btnDodajKurs = new JButton("Dodaj kurs");
+			btnDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.otvoriDodajKursGUI();
+				}
+			});
 			btnDodajKurs.setPreferredSize(new Dimension(130, 25));
 		}
 		return btnDodajKurs;
@@ -186,6 +191,18 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnIzbrisiKurs() {
 		if (btnIzbrisiKurs == null) {
 			btnIzbrisiKurs = new JButton("Izbrisi kurs");
+			btnIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int index = table.getSelectedRow();
+					if(index != -1){
+						if(JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da zelite da izbrisete red " + index + "?") == JOptionPane.YES_OPTION){
+							TabelaModel model = (TabelaModel)table.getModel();
+							model.izbrisiRed(table.getSelectedRow());
+							table.setModel(model);
+						}
+					}else JOptionPane.showMessageDialog(contentPane, "Niste izabrali red za brisanje iz tabele!", "Greska", JOptionPane.ERROR_MESSAGE);					
+				}
+			});
 			btnIzbrisiKurs.setPreferredSize(new Dimension(130, 25));
 		}
 		return btnIzbrisiKurs;

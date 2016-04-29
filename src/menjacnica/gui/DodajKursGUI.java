@@ -156,6 +156,12 @@ public class DodajKursGUI extends JFrame {
 			btnDodajKurs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String [] kurs = new String[]{txtSifra.getText(), txtSkraceniNaziv.getText(), txtProdajniKurs.getText(), txtSrednjiKurs.getText(), txtKupovniKurs.getText(), txtNaziv.getText()};
+					txtSifra.setText("");
+					txtSkraceniNaziv.setText("");
+					txtProdajniKurs.setText("");
+					txtSrednjiKurs.setText("");
+					txtKupovniKurs.setText("");
+					txtNaziv.setText("");
 					GUIKontroler.dodajKurs(kurs);
 				}
 			});
@@ -166,6 +172,11 @@ public class DodajKursGUI extends JFrame {
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");
+			btnOdustani.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 			btnOdustani.setBounds(275, 208, 146, 23);
 		}
 		return btnOdustani;

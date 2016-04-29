@@ -6,11 +6,12 @@ import javax.swing.JOptionPane;
 
 public class GUIKontroler {
 	public static MenjacnicaGUI glavniProzor;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenjacnicaGUI glavniProzor = new MenjacnicaGUI();
+					glavniProzor = new MenjacnicaGUI();
 					glavniProzor.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
