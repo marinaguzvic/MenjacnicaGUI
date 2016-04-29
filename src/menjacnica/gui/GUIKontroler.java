@@ -33,6 +33,19 @@ public class GUIKontroler {
 		});
 	}
 	
+	
+	public static void otvoriIzvrsiZamenuGUI(){
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					IzvrsiZamenuGUI frame = new IzvrsiZamenuGUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	public static void ugasiAplikaciju() {
 		int opcija = JOptionPane.showConfirmDialog(glavniProzor.getContentPane(), "Da li ste sigurni da želite da izađete iz aplikacije?", "Izlazak", JOptionPane.YES_NO_CANCEL_OPTION);
 		if(opcija == JOptionPane.YES_OPTION)System.exit(0);
