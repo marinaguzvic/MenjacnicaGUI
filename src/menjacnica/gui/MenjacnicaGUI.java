@@ -1,39 +1,39 @@
 package menjacnica.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.event.InputEvent;
-import javax.swing.ImageIcon;
-import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
-
 import java.awt.Color;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import menjacnica.modeli.TabelaModel;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -55,6 +55,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton btnIzvrsiZamenu;
 	private JScrollPane spTabela;
 	private JTable table;
+	
+	public void osveziTabelu(String [] polja) {
+		
+	}
+
 	private JScrollPane spTextArea;
 	private JTextArea textArea;
 	private JPopupMenu popupMenu;
@@ -65,18 +70,7 @@ public class MenjacnicaGUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenjacnicaGUI frame = new MenjacnicaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
@@ -85,11 +79,11 @@ public class MenjacnicaGUI extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				ugasiAplikaciju();
+				GUIKontroler.ugasiAplikaciju();
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/ikonice/index.jpg")));
-		setTitle("Menja\u010Dnica");
+		setTitle("Menjacnica");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 627, 427);
 		setJMenuBar(getMenuBar_1());
@@ -191,14 +185,14 @@ public class MenjacnicaGUI extends JFrame {
 	}
 	private JButton getBtnIzbrisiKurs() {
 		if (btnIzbrisiKurs == null) {
-			btnIzbrisiKurs = new JButton("Izbri\u0161i kurs");
+			btnIzbrisiKurs = new JButton("Izbrisi kurs");
 			btnIzbrisiKurs.setPreferredSize(new Dimension(130, 25));
 		}
 		return btnIzbrisiKurs;
 	}
 	private JButton getBtnIzvrsiZamenu() {
 		if (btnIzvrsiZamenu == null) {
-			btnIzvrsiZamenu = new JButton("Izvr\u0161i zamenu");
+			btnIzvrsiZamenu = new JButton("Izvrsi zamenu");
 			btnIzvrsiZamenu.setPreferredSize(new Dimension(130, 25));
 		}
 		return btnIzvrsiZamenu;
@@ -213,24 +207,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
-			table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"\u0160ifra", "Skra\u0107eni naziv", "Prodajni", "Srednji", "Kupovni", "Naziv"
-				}
-			) {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
-				boolean[] columnEditables = new boolean[] {
-					false, true, true, true, true, true
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			});
+			table.setModel(new TabelaModel());
 			table.setFillsViewportHeight(true);
 			addPopup(table, getPopupMenu());
 		}
@@ -285,13 +262,13 @@ public class MenjacnicaGUI extends JFrame {
 	}
 	private JMenuItem getMntmIzbrisiKurs() {
 		if (mntmIzbrisiKurs == null) {
-			mntmIzbrisiKurs = new JMenuItem("Izbri\u0161i kurs");
+			mntmIzbrisiKurs = new JMenuItem("Izbrisi kurs");
 		}
 		return mntmIzbrisiKurs;
 	}
 	private JMenuItem getMntmIzvrsiZamenu() {
 		if (mntmIzvrsiZamenu == null) {
-			mntmIzvrsiZamenu = new JMenuItem("Izvr\u0161i zamenu");
+			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
 		}
 		return mntmIzvrsiZamenu;
 	}
@@ -315,9 +292,14 @@ public class MenjacnicaGUI extends JFrame {
 			getTextArea().append("\nSačuvan fajl: " + fajl.getAbsolutePath());
 		}
 	}
+
+	public void unesiRed(String[] polja) {
+		TabelaModel model= (TabelaModel)table.getModel();
+		model.dodajRed(polja);
+		table.setModel(model);
+	}
 	
-	private void ugasiAplikaciju() {
-		int opcija = JOptionPane.showConfirmDialog(getContentPane(), "Da li ste sigurni da želite da izađete iz aplikacije?", "Izlazak", JOptionPane.YES_NO_CANCEL_OPTION);
-		if(opcija == JOptionPane.YES_OPTION)System.exit(0);
+	public void dodajTekst(String text){
+		getTextArea().append(text);
 	}
 }
