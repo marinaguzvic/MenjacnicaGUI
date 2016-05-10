@@ -151,6 +151,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmExit() {
 		if (mntmExit == null) {
 			mntmExit = new JMenuItem("Exit");
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.ugasiAplikaciju();
+				}
+			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		}
 		return mntmExit;
@@ -279,18 +284,40 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmDodajKurs() {
 		if (mntmDodajKurs == null) {
 			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+			mntmDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.otvoriDodajKursGUI();
+				}
+			});
 		}
 		return mntmDodajKurs;
 	}
 	private JMenuItem getMntmIzbrisiKurs() {
 		if (mntmIzbrisiKurs == null) {
 			mntmIzbrisiKurs = new JMenuItem("Izbrisi kurs");
+			mntmIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int index = table.getSelectedRow();
+					if(index != -1){
+						if(JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da zelite da izbrisete red " + index + "?") == JOptionPane.YES_OPTION){
+							TabelaModel model = (TabelaModel)table.getModel();
+							model.izbrisiRed(table.getSelectedRow());
+							table.setModel(model);
+						}
+					}else JOptionPane.showMessageDialog(contentPane, "Niste izabrali red za brisanje iz tabele!", "Greska", JOptionPane.ERROR_MESSAGE);	
+				}
+			});
 		}
 		return mntmIzbrisiKurs;
 	}
 	private JMenuItem getMntmIzvrsiZamenu() {
 		if (mntmIzvrsiZamenu == null) {
 			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
+			mntmIzvrsiZamenu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.otvoriIzvrsiZamenuGUI();
+				}
+			});
 		}
 		return mntmIzvrsiZamenu;
 	}
